@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fruit Quiz</title>
+</head>
+
+<body>
+
+<h1>Fruit Quiz</h1>
+
+<p>Which fruit is yellow?</p>
+
+<button onclick="checkAnswer('apple')">Apple</button>
+<button onclick="checkAnswer('banana')">Banana</button>
+<button onclick="checkAnswer('grape')">Grape</button>
+
+<p id="result"></p>
+
+<script>
+function checkAnswer(answer){
+
+if(answer === "banana"){
+document.getElementById("result").innerText = "Correct!";
+}else{
+document.getElementById("result").innerText = "Wrong!";
+}
+
+}
+</script>
+
+</body>
+</html>
