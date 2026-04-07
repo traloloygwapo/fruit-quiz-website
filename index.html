@@ -3,91 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fruit Quiz</title>
+  <title>Click the Button Game</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-    }
-    h1 {
       text-align: center;
+      margin-top: 50px;
     }
-    .question {
-      margin: 20px 0;
-      padding: 15px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    }
-    button {
-      margin-top: 10px;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      background-color: #28a745;
+    #gameButton {
+      position: absolute;
+      padding: 15px 25px;
+      background-color: #4CAF50;
       color: white;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #218838;
-    }
     #score {
-      font-size: 1.2em;
-      margin-top: 20px;
-      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
-  <h1>Fruit Quiz</h1>
-  <div id="quiz-container"></div>
-  <div id="score"></div>
+  <div id="score">Score: 0</div>
+  <button id="gameButton">Click me!</button>
 
   <script>
-    const quizData = [
-      {question: "Which fruit is yellow and curved?", options: ["Apple", "Banana", "Grapes", "Orange"], answer: "Banana"},
-      {question: "Which fruit is red and often associated with teachers?", options: ["Strawberry", "Apple", "Cherry", "Watermelon"], answer: "Apple"},
-      {question: "Which fruit has a crown on top?", options: ["Pineapple", "Mango", "Kiwi", "Papaya"], answer: "Pineapple"},
-      {question: "Which fruit is small, purple or green, and grows in bunches?", options: ["Grapes", "Blueberry", "Plum", "Fig"], answer: "Grapes"},
-      {question: "Which fruit is orange and rich in Vitamin C?", options: ["Orange", "Lemon", "Peach", "Mango"], answer: "Orange"},
-      {question: "Which fruit is green outside and red inside with black seeds?", options: ["Watermelon", "Apple", "Kiwi", "Pear"], answer: "Watermelon"},
-      {question: "Which fruit is fuzzy and brown on the outside?", options: ["Kiwi", "Peach", "Mango", "Lychee"], answer: "Kiwi"},
-      {question: "Which fruit is known as the 'king of fruits' in Southeast Asia?", options: ["Durian", "Mango", "Papaya", "Banana"], answer: "Durian"},
-      {question: "Which fruit is small, round, and blue?", options: ["Blueberry", "Grape", "Plum", "Blackberry"], answer: "Blueberry"},
-      {question: "Which fruit is tropical and yellow inside with spiky skin?", options: ["Pineapple", "Mango", "Papaya", "Banana"], answer: "Pineapple"}
-    ];
-
-    let currentQuestion = 0;
     let score = 0;
+    const button = document.getElementById('gameButton');
+    const scoreDisplay = document.getElementById('score');
 
-    function showQuestion() {
-      const container = document.getElementById('quiz-container');
-      if(currentQuestion < quizData.length) {
-        const q = quizData[currentQuestion];
-        let html = `<div class="question"><p>${currentQuestion+1}. ${q.question}</p>`;
-        q.options.forEach(option => {
-          html += `<button onclick="checkAnswer('${option}')">${option}</button><br>`;
-        });
-        html += `</div>`;
-        container.innerHTML = html;
-      } else {
-        container.innerHTML = '';
-        document.getElementById('score').innerText = `Your Score: ${score} / ${quizData.length}`;
-      }
+    function moveButton() {
+      const maxX = window.innerWidth - button.offsetWidth;
+      const maxY = window.innerHeight - button.offsetHeight;
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+      button.style.left = randomX + 'px';
+      button.style.top = randomY + 'px';
     }
 
-    function checkAnswer(selected) {
-      if(selected === quizData[currentQuestion].answer) {
-        score++;
-      }
-      currentQuestion++;
-      showQuestion();
-    }
+    button.addEventListener('click', () => {
+      score++;
+      scoreDisplay.textContent = 'Score: ' + score;
+      moveButton();
+    });
 
-    showQuestion();
+    // Move the button initially
+    moveButton();
   </script>
 </body>
 </html>
