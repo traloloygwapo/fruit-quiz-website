@@ -1,56 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Click the Button Game</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 50px;
-    }
-    #gameButton {
-      position: absolute;
-      padding: 15px 25px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    #score {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Geometry Dash</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: #87CEEB; /* sky blue */
+    font-family: sans-serif;
+  }
+  #game {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  #player {
+    width: 50px;
+    height: 50px;
+    background: #FF4500; /* red square */
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+  }
+  .obstacle {
+    width: 50px;
+    height: 50px;
+    background: #228B22; /* green blocks */
+    position: absolute;
+    bottom: 50px;
+    right: 0;
+  }
+  #score {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    color: white;
+  }
+</style>
 </head>
 <body>
+<div id="game">
   <div id="score">Score: 0</div>
-  <button id="gameButton">Click me!</button>
+  <div id="player"></div>
+</div>
 
-  <script>
-    let score = 0;
-    const button = document.getElementById('gameButton');
-    const scoreDisplay = document.getElementById('score');
+<script>
+const player = document.getElementById('player');
+const game = document.getElementById('game');
+const scoreDisplay = document.getElementById('score');
 
-    function moveButton() {
-      const maxX = window.innerWidth - button.offsetWidth;
-      const maxY = window.innerHeight - button.offsetHeight;
-      const randomX = Math.floor(Math.random() * maxX);
-      const randomY = Math.floor(Math.random() * maxY);
-      button.style.left = randomX + 'px';
-      button.style.top = randomY + 'px';
+let playerY = 0;
+let isJumping = false;
+let gravity = 2;
+let score = 0;
+let obstacles = [];
+
+// Jump function
+function jump() {
+  if (!isJumping) {
+    isJumping = true;
+    let jumpHeight = 0;
+    const jumpInterval = setInterval(() => {
+      if (jumpHeight > 100) {
+        clearInterval(jumpInterval);
+        const fallInterval = setInterval(() => {
+          if (playerY <= 0) {
+            clearInterval(fallInterval);
+            playerY = 0;
+            isJumping = false;
+            player.style.bottom = playerY + 50 + 'px';
+          } else {
+            playerY -= gravity;
+            player.style.bottom = playerY + 50 + 'px';
+          }
+        }, 20);
+      } else {
+        jumpHeight += 5;
+        playerY += 5;
+        player.style.bottom = playerY + 50 + 'px';
+      }
+    }, 20);
+  }
+}
+
+// Create obstacles
+function createObstacle() {
+  const obstacle = document.createElement('div');
+  obstacle.classList.add('obstacle');
+  game.appendChild(obstacle);
+  let obstacleX = window.innerWidth;
+  obstacle.style.left = obstacleX + 'px';
+  obstacles.push(obstacle);
+
+  const moveInterval = setInterval(() => {
+    obstacleX -= 5;
+    obstacle.style.left = obstacleX + 'px';
+
+    // Check collision
+    if (
+      obstacleX < 50 + 50 && 
+      obstacleX + 50 > 50 &&
+      playerY + 50 > 50
+    ) {
+      alert('Game Over! Score: ' + score);
+      location.reload();
     }
 
-    button.addEventListener('click', () => {
+    if (obstacleX < -50) {
+      clearInterval(moveInterval);
+      obstacle.remove();
+      obstacles.shift();
       score++;
       scoreDisplay.textContent = 'Score: ' + score;
-      moveButton();
-    });
+    }
+  }, 20);
+}
 
-    // Move the button initially
-    moveButton();
-  </script>
+// Spawn obstacles every 2 seconds
+setInterval(createObstacle, 2000);
+
+// Listen for spacebar or click to jump
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space') jump();
+});
+document.addEventListener('click', jump);
+</script>
 </body>
 </html>
