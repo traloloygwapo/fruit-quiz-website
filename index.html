@@ -1,32 +1,147 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Fruit Quiz</title>
-</head>
+score = 0
 
-<body>
+print("Welcome to the Fruit Quiz Game!")
+print("Type a, b, c, or d\n")
 
-<h1>Fruit Quiz</h1>
+# Question 1
+print("1. Which fruit is yellow and monkeys love it?")
+print("a) Apple")
+print("b) Banana")
+print("c) Mango")
+print("d) Orange")
+answer = input("Your answer: ")
 
-<p>Which fruit is yellow?</p>
+if answer.lower() == "b":
+    print("Correct!\n")
+    score += 1
+else:
+    print("Wrong! The answer is Banana.\n")
 
-<button onclick="checkAnswer('apple')">Apple</button>
-<button onclick="checkAnswer('banana')">Banana</button>
-<button onclick="checkAnswer('grape')">Grape</button>
+# Question 2
+print("2. Which fruit is known as the 'King of Fruits'?")
+print("a) Durian")
+print("b) Pineapple")
+print("c) Grapes")
+print("d) Apple")
+answer = input("Your answer: ")
 
-<p id="result"></p>
+if answer.lower() == "a":
+    print("Correct!\n")
+    score += 1
+else:
+    print("Wrong! The answer is Durian.\n")
 
-<script>
-function checkAnswer(answer){
+# Question 3
+print("3. Which fruit keeps the doctor away?")
+print("a) Mango")
+print("b) Apple")
+print("c) Banana")
+print("d) Papaya")
+answer = input("Your answer: ")
 
-if(answer === "banana"){
-document.getElementById("result").innerText = "Correct!";
-}else{
-document.getElementById("result").innerText = "Wrong!";
-}
+if answer.lower() == "b":
+    print("Correct!\n")
+    score += 1
+else:
+    print("Wrong! The answer is Apple.\n")
 
-}
-</script>
+# Question 4
+print("4. Which fruit has many small seeds on the outside?")
+print("a) Strawberry")
+print("b) Watermelon")
+print("c) Pineapple")
+print("d) Orange")
+answer = input("Your answer: ")
 
-</body>
-</html>
+if answer.lower() == "a":
+    print("Correct!\n")
+    score += 1
+else:
+    print("Wrong! The answer is Strawberry.\n")
+
+# Question 5
+print("5. Which fruit is very big and has green stripes?")
+print("a) Mango")
+print("b) Watermelon")
+print("c) Apple")
+print("d) Grapes")
+answer = input("Your answer: ")
+
+if answer.lower() == "b":
+    print("Correct!\n")
+    score += 1
+else:
+    print("Wrong! The answer is Watermelon.\n")
+
+# Question 6
+print("6. Which fruit is orange in color and used for juice?")
+print("a) Orange")
+print("b) Banana")
+print("c) Apple")
+print("d) Mango")
+answer = input("Your answer: ")
+
+if answer.lower() == "a":
+    print("Correct!\n")
+    score += 1
+else:
+    print("Wrong! The answer is Orange.\n")
+
+# Question 7
+print("7. Which fruit is small, round, and grows in bunches?")
+print("a) Grapes")
+print("b) Apple")
+print("c) Pineapple")
+print("d) Mango")
+answer = input("Your answer: ")
+
+if answer.lower() == "a":
+    print("Correct!\n")
+    score += 1
+else:
+    print("Wrong! The answer is Grapes.\n")
+
+# Question 8
+print("8. Which fruit has a crown-like top?")
+print("a) Pineapple")
+print("b) Banana")
+print("c) Apple")
+print("d) Orange")
+answer = input("Your answer: ")
+
+if answer.lower() == "a":
+    print("Correct!\n")
+    score += 1
+else:
+    print("Wrong! The answer is Pineapple.\n")
+
+# Question 9
+print("9. Which fruit is very sweet and popular in the Philippines?")
+print("a) Mango")
+print("b) Apple")
+print("c) Grapes")
+print("d) Orange")
+answer = input("Your answer: ")
+
+if answer.lower() == "a":
+    print("Correct!\n")
+    score += 1
+else:
+    print("Wrong! The answer is Mango.\n")
+
+# Question 10
+print("10. Which fruit is green outside and red inside?")
+print("a) Papaya")
+print("b) Watermelon")
+print("c) Apple")
+print("d) Banana")
+answer = input("Your answer: ")
+
+if answer.lower() == "b":
+    print("Correct!\n")
+    score += 1
+else:
+    print("Wrong! The answer is Watermelon.\n")
+
+print("Quiz finished!")
+print("Your score:", score, "/ 10")
