@@ -1,147 +1,93 @@
-score = 0
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fruit Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+    }
+    .question {
+      margin: 20px 0;
+      padding: 15px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    #score {
+      font-size: 1.2em;
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fruit Quiz</h1>
+  <div id="quiz-container"></div>
+  <div id="score"></div>
 
-print("Welcome to the Fruit Quiz Game!")
-print("Type a, b, c, or d\n")
+  <script>
+    const quizData = [
+      {question: "Which fruit is yellow and curved?", options: ["Apple", "Banana", "Grapes", "Orange"], answer: "Banana"},
+      {question: "Which fruit is red and often associated with teachers?", options: ["Strawberry", "Apple", "Cherry", "Watermelon"], answer: "Apple"},
+      {question: "Which fruit has a crown on top?", options: ["Pineapple", "Mango", "Kiwi", "Papaya"], answer: "Pineapple"},
+      {question: "Which fruit is small, purple or green, and grows in bunches?", options: ["Grapes", "Blueberry", "Plum", "Fig"], answer: "Grapes"},
+      {question: "Which fruit is orange and rich in Vitamin C?", options: ["Orange", "Lemon", "Peach", "Mango"], answer: "Orange"},
+      {question: "Which fruit is green outside and red inside with black seeds?", options: ["Watermelon", "Apple", "Kiwi", "Pear"], answer: "Watermelon"},
+      {question: "Which fruit is fuzzy and brown on the outside?", options: ["Kiwi", "Peach", "Mango", "Lychee"], answer: "Kiwi"},
+      {question: "Which fruit is known as the 'king of fruits' in Southeast Asia?", options: ["Durian", "Mango", "Papaya", "Banana"], answer: "Durian"},
+      {question: "Which fruit is small, round, and blue?", options: ["Blueberry", "Grape", "Plum", "Blackberry"], answer: "Blueberry"},
+      {question: "Which fruit is tropical and yellow inside with spiky skin?", options: ["Pineapple", "Mango", "Papaya", "Banana"], answer: "Pineapple"}
+    ];
 
-# Question 1
-print("1. Which fruit is yellow and monkeys love it?")
-print("a) Apple")
-print("b) Banana")
-print("c) Mango")
-print("d) Orange")
-answer = input("Your answer: ")
+    let currentQuestion = 0;
+    let score = 0;
 
-if answer.lower() == "b":
-    print("Correct!\n")
-    score += 1
-else:
-    print("Wrong! The answer is Banana.\n")
+    function showQuestion() {
+      const container = document.getElementById('quiz-container');
+      if(currentQuestion < quizData.length) {
+        const q = quizData[currentQuestion];
+        let html = `<div class="question"><p>${currentQuestion+1}. ${q.question}</p>`;
+        q.options.forEach(option => {
+          html += `<button onclick="checkAnswer('${option}')">${option}</button><br>`;
+        });
+        html += `</div>`;
+        container.innerHTML = html;
+      } else {
+        container.innerHTML = '';
+        document.getElementById('score').innerText = `Your Score: ${score} / ${quizData.length}`;
+      }
+    }
 
-# Question 2
-print("2. Which fruit is known as the 'King of Fruits'?")
-print("a) Durian")
-print("b) Pineapple")
-print("c) Grapes")
-print("d) Apple")
-answer = input("Your answer: ")
+    function checkAnswer(selected) {
+      if(selected === quizData[currentQuestion].answer) {
+        score++;
+      }
+      currentQuestion++;
+      showQuestion();
+    }
 
-if answer.lower() == "a":
-    print("Correct!\n")
-    score += 1
-else:
-    print("Wrong! The answer is Durian.\n")
-
-# Question 3
-print("3. Which fruit keeps the doctor away?")
-print("a) Mango")
-print("b) Apple")
-print("c) Banana")
-print("d) Papaya")
-answer = input("Your answer: ")
-
-if answer.lower() == "b":
-    print("Correct!\n")
-    score += 1
-else:
-    print("Wrong! The answer is Apple.\n")
-
-# Question 4
-print("4. Which fruit has many small seeds on the outside?")
-print("a) Strawberry")
-print("b) Watermelon")
-print("c) Pineapple")
-print("d) Orange")
-answer = input("Your answer: ")
-
-if answer.lower() == "a":
-    print("Correct!\n")
-    score += 1
-else:
-    print("Wrong! The answer is Strawberry.\n")
-
-# Question 5
-print("5. Which fruit is very big and has green stripes?")
-print("a) Mango")
-print("b) Watermelon")
-print("c) Apple")
-print("d) Grapes")
-answer = input("Your answer: ")
-
-if answer.lower() == "b":
-    print("Correct!\n")
-    score += 1
-else:
-    print("Wrong! The answer is Watermelon.\n")
-
-# Question 6
-print("6. Which fruit is orange in color and used for juice?")
-print("a) Orange")
-print("b) Banana")
-print("c) Apple")
-print("d) Mango")
-answer = input("Your answer: ")
-
-if answer.lower() == "a":
-    print("Correct!\n")
-    score += 1
-else:
-    print("Wrong! The answer is Orange.\n")
-
-# Question 7
-print("7. Which fruit is small, round, and grows in bunches?")
-print("a) Grapes")
-print("b) Apple")
-print("c) Pineapple")
-print("d) Mango")
-answer = input("Your answer: ")
-
-if answer.lower() == "a":
-    print("Correct!\n")
-    score += 1
-else:
-    print("Wrong! The answer is Grapes.\n")
-
-# Question 8
-print("8. Which fruit has a crown-like top?")
-print("a) Pineapple")
-print("b) Banana")
-print("c) Apple")
-print("d) Orange")
-answer = input("Your answer: ")
-
-if answer.lower() == "a":
-    print("Correct!\n")
-    score += 1
-else:
-    print("Wrong! The answer is Pineapple.\n")
-
-# Question 9
-print("9. Which fruit is very sweet and popular in the Philippines?")
-print("a) Mango")
-print("b) Apple")
-print("c) Grapes")
-print("d) Orange")
-answer = input("Your answer: ")
-
-if answer.lower() == "a":
-    print("Correct!\n")
-    score += 1
-else:
-    print("Wrong! The answer is Mango.\n")
-
-# Question 10
-print("10. Which fruit is green outside and red inside?")
-print("a) Papaya")
-print("b) Watermelon")
-print("c) Apple")
-print("d) Banana")
-answer = input("Your answer: ")
-
-if answer.lower() == "b":
-    print("Correct!\n")
-    score += 1
-else:
-    print("Wrong! The answer is Watermelon.\n")
-
-print("Quiz finished!")
-print("Your score:", score, "/ 10")
+    showQuestion();
+  </script>
+</body>
+</html>
